@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
-import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser"
+
 
 const app=express();
 
@@ -9,9 +10,18 @@ app.use(cors({
     credentials:true
 }))
 
-app.use(express,JSON({limit:"16kb"}))
+app.use(express.json({limit:"16kb"}))
 app.use(express.urlencoded({extended:true,limit:"16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
+
+//routes
+import userRouter from './routes/user.routes.js'
+
+
+//routes decalration 
+app.use("/api/v2/users",userRouter)
+
+// http://locahost:8000/api/v2/users/register
 
 export{ app }
